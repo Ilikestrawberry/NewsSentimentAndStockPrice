@@ -42,7 +42,6 @@ class Preprocess:
         pattern_id = re.compile(r"[-_0-9a-z]+@", flags=re.IGNORECASE)
         pattern_pic = re.compile(r"pic\.(\w+\.)+\S*", flags=re.IGNORECASE)
 
-
         texts = pattern_email.sub("", texts).strip()
         texts = pattern_url.sub("", texts).strip()
         texts = pattern_phone_number.sub("", texts).strip()
@@ -241,7 +240,7 @@ class Preprocess:
             s1 = set(title.split())
             s2 = set(return_sentences[0].split())
             actual_jaccard = float(len(s1.intersection(s2))) / float(len(s1.union(s2)))
-            
+
             # 본문 내용은 앞에 2문장만 사용
             if actual_jaccard > 0.5:
                 return_sentences = return_sentences[1:3]
@@ -251,14 +250,15 @@ class Preprocess:
         else:
             return None
 
-if __name__ == '__main__':
 
-    sample = pd.read_pickle('./newsdata/sample.pkl')
+if __name__ == "__main__":
+
+    sample = pd.read_pickle("./newsdata/sample.pkl")
     prepro = Preprocess()
 
     start_time = time.time()
-    result = prepro(sample['title'][0], sample['context'][0])
+    result = prepro(sample["title"][0], sample["context"][0])
     end_time = time.time()
-    
+
     print(result)
-    print('time check', end_time - start_time)
+    print("time check", end_time - start_time)
