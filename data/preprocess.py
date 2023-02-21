@@ -32,12 +32,8 @@ class Preprocess:
         * 사진 관련 정보를 제거합니다.
         """
 
-        pattern_email = re.compile(
-            r"[-_0-9a-z]+@[-_0-9a-z]+(?:\.[0-9a-z]+)+", flags=re.IGNORECASE
-        )
-        pattern_url = re.compile(
-            r"(http|https)?:\/\/\S+\b|www\.(\w+\.)+\S*", flags=re.IGNORECASE
-        )
+        pattern_email = re.compile(r"[-_0-9a-z]+@[-_0-9a-z]+(?:\.[0-9a-z]+)+", flags=re.IGNORECASE)
+        pattern_url = re.compile(r"(http|https)?:\/\/\S+\b|www\.(\w+\.)+\S*", flags=re.IGNORECASE)
         pattern_phone_number = re.compile(r"\d{2,3}-\d{3,4}-\d{4}")
         pattern_id = re.compile(r"[-_0-9a-z]+@", flags=re.IGNORECASE)
         pattern_pic = re.compile(r"pic\.(\w+\.)+\S*", flags=re.IGNORECASE)
@@ -83,9 +79,7 @@ class Preprocess:
         뉴스 내 포함된 저작권 관련 텍스트를 제거합니다.
         ``(사진=저작권자(c) 연합뉴스, 무단 전재-재배포 금지)`` -> ``(사진= 연합뉴스, 무단 전재-재배포 금지)`` TODO 수정할 것
         """
-        pattern_copyright1 = re.compile(
-            r"\<저작권자(\(c\)|ⓒ|©|\(Copyright\)|(\(c\))|(\(C\))).+?\>"
-        )
+        pattern_copyright1 = re.compile(r"\<저작권자(\(c\)|ⓒ|©|\(Copyright\)|(\(c\))|(\(C\))).+?\>")
         pattern_copyright2 = re.compile(r"저작권자\(c\)|ⓒ|©|(Copyright)|(\(c\))|(\(C\))")
 
         texts = pattern_copyright1.sub("", texts).strip()
@@ -118,6 +112,7 @@ class Preprocess:
         두 개 이상의 연속된 공백을 하나로 치환합니다.
         ``오늘은    날씨가   좋다.`` -> ``오늘은 날씨가 좋다.``
         """
+        texts = texts.replace("다.", "다. ")
         texts = re.sub(r"\s+", " ", texts).strip()
         return texts
 
@@ -140,9 +135,7 @@ class Preprocess:
         괄호를 제거합니다
         ``(연합뉴스 홍길동 기자)`` -> ````
         """
-        pattern_bracket = re.compile(
-            r"\[(.*?)\]|\((.*?)\)|\【(.*?)\】|\<(.*?)\>|\◆(.*?)\◆|\［(.*?)\］"
-        )
+        pattern_bracket = re.compile(r"\[(.*?)\]|\((.*?)\)|\【(.*?)\】|\<(.*?)\>|\◆(.*?)\◆|\［(.*?)\］")
         texts = pattern_bracket.sub("", texts).strip()
         return texts
 

@@ -21,11 +21,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print(" ### Api Call Start ###")
-    cw = Crawl(client_id="TUWK9h7NsYO2gamKnZzO", client_secret="kucd9CcnDn", args=args)
-    result = cw(query=args.company_name, number=1000)
-
-    print(" ### Parsering start ###")
-    dfp = DataFrameParallel(result, n_cores=16, pbar=True)
-    result["context"] = dfp["link"].apply(context)
-
+    cw = Crawl(client_id="", client_secret="", args=args)
+    result = cw(query=args.company_name, number=3000)
     result.to_pickle(f"./newsdata/{args.company_name}_{args.sort}.pkl")
